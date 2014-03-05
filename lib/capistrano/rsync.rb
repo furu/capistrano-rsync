@@ -41,10 +41,12 @@ end
 
 namespace :rsync do
   task :hook_scm do
+    Rake::Task["#{scm}:check"].clear
     Rake::Task.define_task("#{scm}:check") do
       invoke "rsync:check" 
     end
 
+    Rake::Task["#{scm}:create_release"].clear
     Rake::Task.define_task("#{scm}:create_release") do
       invoke "rsync:release" 
     end
